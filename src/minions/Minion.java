@@ -1,16 +1,20 @@
 package minions;
 
 import gametable.Gametable;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class Minion {
-    int mana;
-    int health;
-    int attackDamage;
-    String description;
-    String colors;
-    String name;
-    boolean statusFrozen;
-    String position;
+    private int mana;
+    private int health;
+    private int attackDamage;
+    private String description;
+    private String colors;
+    private String name;
+    private boolean statusFrozen;
+    private String position;
 
     public Minion(int mana, int health, int attackDamage, String description, String colors, String name) {
         this.mana = mana;
@@ -27,80 +31,80 @@ public class Minion {
 class Sentinel extends Minion {
     public Sentinel(int mana, int health, int attackDamage, String description, String colors, String name) {
         super(mana, health, attackDamage, description, colors, name);
-        this.position = "back";
+        this.setPosition("back");
     }
 }
 
 class Berserker extends Minion {
     public Berserker(int mana, int health, int attackDamage, String description, String colors, String name) {
         super(mana, health, attackDamage, description, colors, name);
-        this.position = "back";
+        this.setPosition("back");
     }
 }
 
 class Goliath extends Minion {
     public Goliath(int mana, int health, int attackDamage, String description, String colors, String name) {
         super(mana, health, attackDamage, description, colors, name);
-        this.position = "front";
+        this.setPosition("front");
     }
 }
 
 class Warden extends Minion {
     public Warden(int mana, int health, int attackDamage, String description, String colors, String name) {
         super(mana, health, attackDamage, description, colors, name);
-        this.position = "front";
+        this.setPosition("front");
     }
 }
 
 class theRipper extends Minion {
     public theRipper(int mana, int health, int attackDamage, String description, String colors, String name) {
         super(mana, health, attackDamage, description, colors, name);
-        this.position = "front";
+        this.setPosition("front");
     }
 
     public void specialAbility(Minion m) {
-        if(m.attackDamage < 2)
-            m.attackDamage = 0;
+        if(m.getAttackDamage() < 2)
+            m.setAttackDamage(0);
         else
-            m.attackDamage -= 2;
+            m.setAttackDamage(m.getAttackDamage() - 2);
     }
 }
 
 class Miraj extends Minion {
     public Miraj(int mana, int health, int attackDamage, String description, String colors, String name) {
         super(mana, health, attackDamage, description, colors, name);
-        this.position = "front";
+        this.setPosition("front");
     }
 
     public void specialAbility(Minion m) {
-        int temp = m.health;
-        m.health = this.health;
-        this.health = temp;
+        int temp = m.getHealth();
+        this.setHealth(m.getHealth());
+        m.setHealth(temp);
     }
 }
 
 class theCursedOne extends Minion {
     public theCursedOne(int mana, int health, int attackDamage, String description, String colors, String name) {
         super(mana, health, attackDamage, description, colors, name);
-        this.attackDamage = 0;
+        this.setAttackDamage(0);
     }
 
     public void specialAbility(Minion m) {
-        int temp = m.health;
-        m.health = m.attackDamage;
-        m.attackDamage = temp;
+        int temp = m.getHealth();
+        m.setHealth(this.getHealth());
+        m.setAttackDamage(temp);
     }
 }
 
 class Disciple extends Minion {
     public Disciple(int mana, int health, int attackDamage, String description, String colors, String name) {
         super(mana, health, attackDamage, description, colors, name);
-        this.attackDamage = 0;
+        this.setAttackDamage(0);
     }
 
     public void specialAbility(Gametable g, int x) {
         for(Minion m : g.table[x]) {
-            m.health += 2;
+            m.setHealth(m.getHealth() + 2);
         }
     }
 }

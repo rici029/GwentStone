@@ -10,6 +10,7 @@ public class Minion {
     String colors;
     String name;
     boolean statusFrozen;
+    String position;
 
     public Minion(int mana, int health, int attackDamage, String description, String colors, String name) {
         this.mana = mana;
@@ -19,36 +20,42 @@ public class Minion {
         this.colors = colors;
         this.name = name;
         this.statusFrozen = false;
+        this.position = "";
     }
 }
 
 class Sentinel extends Minion {
     public Sentinel(int mana, int health, int attackDamage, String description, String colors, String name) {
         super(mana, health, attackDamage, description, colors, name);
+        this.position = "back";
     }
 }
 
 class Berserker extends Minion {
     public Berserker(int mana, int health, int attackDamage, String description, String colors, String name) {
         super(mana, health, attackDamage, description, colors, name);
+        this.position = "back";
     }
 }
 
 class Goliath extends Minion {
     public Goliath(int mana, int health, int attackDamage, String description, String colors, String name) {
         super(mana, health, attackDamage, description, colors, name);
+        this.position = "front";
     }
 }
 
 class Warden extends Minion {
     public Warden(int mana, int health, int attackDamage, String description, String colors, String name) {
         super(mana, health, attackDamage, description, colors, name);
+        this.position = "front";
     }
 }
 
 class theRipper extends Minion {
     public theRipper(int mana, int health, int attackDamage, String description, String colors, String name) {
         super(mana, health, attackDamage, description, colors, name);
+        this.position = "front";
     }
 
     public void specialAbility(Minion m) {
@@ -62,6 +69,7 @@ class theRipper extends Minion {
 class Miraj extends Minion {
     public Miraj(int mana, int health, int attackDamage, String description, String colors, String name) {
         super(mana, health, attackDamage, description, colors, name);
+        this.position = "front";
     }
 
     public void specialAbility(Minion m) {

@@ -4,6 +4,8 @@ import gametable.Gametable;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+
 @Getter
 @Setter
 public class Minion {
@@ -11,12 +13,12 @@ public class Minion {
     private int health;
     private int attackDamage;
     private String description;
-    private String colors;
+    private ArrayList<String> colors;
     private String name;
     private boolean statusFrozen;
     private String position;
 
-    public Minion(int mana, int health, int attackDamage, String description, String colors, String name) {
+    public Minion(int mana, int health, int attackDamage, String description, ArrayList<String> colors, String name) {
         this.mana = mana;
         this.health = health;
         this.attackDamage = attackDamage;
@@ -29,35 +31,35 @@ public class Minion {
 }
 
 class Sentinel extends Minion {
-    public Sentinel(int mana, int health, int attackDamage, String description, String colors, String name) {
+    public Sentinel(int mana, int health, int attackDamage, String description, ArrayList<String> colors, String name) {
         super(mana, health, attackDamage, description, colors, name);
         this.setPosition("back");
     }
 }
 
 class Berserker extends Minion {
-    public Berserker(int mana, int health, int attackDamage, String description, String colors, String name) {
+    public Berserker(int mana, int health, int attackDamage, String description, ArrayList<String> colors, String name) {
         super(mana, health, attackDamage, description, colors, name);
         this.setPosition("back");
     }
 }
 
 class Goliath extends Minion {
-    public Goliath(int mana, int health, int attackDamage, String description, String colors, String name) {
+    public Goliath(int mana, int health, int attackDamage, String description, ArrayList<String> colors, String name) {
         super(mana, health, attackDamage, description, colors, name);
         this.setPosition("front");
     }
 }
 
 class Warden extends Minion {
-    public Warden(int mana, int health, int attackDamage, String description, String colors, String name) {
+    public Warden(int mana, int health, int attackDamage, String description, ArrayList<String> colors, String name) {
         super(mana, health, attackDamage, description, colors, name);
         this.setPosition("front");
     }
 }
 
 class theRipper extends Minion {
-    public theRipper(int mana, int health, int attackDamage, String description, String colors, String name) {
+    public theRipper(int mana, int health, int attackDamage, String description, ArrayList<String> colors, String name) {
         super(mana, health, attackDamage, description, colors, name);
         this.setPosition("front");
     }
@@ -71,7 +73,7 @@ class theRipper extends Minion {
 }
 
 class Miraj extends Minion {
-    public Miraj(int mana, int health, int attackDamage, String description, String colors, String name) {
+    public Miraj(int mana, int health, int attackDamage, String description, ArrayList<String> colors, String name) {
         super(mana, health, attackDamage, description, colors, name);
         this.setPosition("front");
     }
@@ -84,7 +86,7 @@ class Miraj extends Minion {
 }
 
 class theCursedOne extends Minion {
-    public theCursedOne(int mana, int health, int attackDamage, String description, String colors, String name) {
+    public theCursedOne(int mana, int health, int attackDamage, String description, ArrayList<String> colors, String name) {
         super(mana, health, attackDamage, description, colors, name);
         this.setAttackDamage(0);
     }
@@ -97,7 +99,7 @@ class theCursedOne extends Minion {
 }
 
 class Disciple extends Minion {
-    public Disciple(int mana, int health, int attackDamage, String description, String colors, String name) {
+    public Disciple(int mana, int health, int attackDamage, String description, ArrayList<String> colors, String name) {
         super(mana, health, attackDamage, description, colors, name);
         this.setAttackDamage(0);
     }

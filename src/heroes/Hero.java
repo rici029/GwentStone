@@ -1,20 +1,24 @@
 package heroes;
 
 import gametable.Gametable;
+
+import minions.Minion;
+
+import java.util.ArrayList;
+
 import lombok.Getter;
 import lombok.Setter;
-import minions.Minion;
 
 @Getter
 @Setter
 public class Hero {
-    int mana;
-    int health;
-    String description;
-    String colors;
-    String name;
+    private int mana;
+    private int health;
+    private String description;
+    private ArrayList<String> colors;
+    private String name;
 
-    public Hero(int mana, String description, String colors, String name) {
+    public Hero(int mana, String description, ArrayList<String> colors, String name) {
         this.mana = mana;
         this.health = 30;
         this.description = description;
@@ -24,7 +28,7 @@ public class Hero {
 }
 
 class LordRoyce extends Hero {
-    public LordRoyce(int mana, String description, String colors, String name) {
+    public LordRoyce(int mana, String description, ArrayList<String> colors, String name) {
         super(mana, description, colors, name);
     }
     public void specialAbility(Gametable g, int x) {
@@ -35,7 +39,7 @@ class LordRoyce extends Hero {
 }
 
 class EmpressThorina extends Hero {
-    public EmpressThorina(int mana, String description, String colors, String name) {
+    public EmpressThorina(int mana, String description, ArrayList<String> colors, String name) {
         super(mana, description, colors, name);
     }
 
@@ -55,7 +59,7 @@ class EmpressThorina extends Hero {
 }
 
 class KingMudface extends Hero {
-    public KingMudface(int mana, String description, String colors, String name) {
+    public KingMudface(int mana, String description, ArrayList<String> colors, String name) {
         super(mana, description, colors, name);
     }
 
@@ -67,7 +71,7 @@ class KingMudface extends Hero {
 }
 
 class GeneralKocioraw extends Hero {
-    public GeneralKocioraw(int mana, String description, String colors, String name) {
+    public GeneralKocioraw(int mana, String description, ArrayList<String> colors, String name) {
         super(mana, description, colors, name);
     }
     public void specialAbility(Gametable g, int x) {

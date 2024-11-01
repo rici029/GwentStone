@@ -6,15 +6,21 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import checker.CheckerConstants;
+import fileio.GameInput;
 import fileio.Input;
+import fileio.StartGameInput;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Objects;
 
+import minions.Minion;
+import heroes.Hero;
+import gametable.Gametable;
 /**
  * The entry point to this homework. It runs the checker that tests your implentation.
  */
@@ -69,6 +75,14 @@ public final class Main {
 
         ArrayNode output = objectMapper.createArrayNode();
 
+        ArrayList<GameInput> games = inputData.getGames();
+
+        StartGameInput startGame;
+
+        for(GameInput game : games) {
+            startGame = game.getStartGame();
+
+        }
         /*
          * TODO Implement your function here
          *

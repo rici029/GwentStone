@@ -1,7 +1,11 @@
 package gametable;
 
+import lombok.Getter;
+import lombok.Setter;
 import minions.Minion;
 
+@Getter
+@Setter
 public class Gametable {
     public Minion[][] table;
 

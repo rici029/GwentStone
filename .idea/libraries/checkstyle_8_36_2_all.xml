@@ -2,8 +2,10 @@
   <library name="checkstyle-8.36.2-all">
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/src/checker/checkstyle-8.36.2-all.jar!/" />
+      <root url="file://$PROJECT_DIR$/lib" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/lib" recursive="false" />
   </library>
 </component>

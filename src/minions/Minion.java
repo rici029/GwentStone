@@ -18,7 +18,7 @@ public class Minion {
     private boolean statusFrozen;
     private String position;
 
-    public Minion(int mana, int health, int attackDamage, String description, ArrayList<String> colors, String name) {
+    public Minion(final int mana,final int health, final int attackDamage, final String description, final ArrayList<String> colors, final String name) {
         this.mana = mana;
         this.health = health;
         this.attackDamage = attackDamage;
@@ -58,8 +58,8 @@ class Warden extends Minion {
     }
 }
 
-class theRipper extends Minion {
-    public theRipper(int mana, int health, int attackDamage, String description, ArrayList<String> colors, String name) {
+class TheRipper extends Minion {
+    public TheRipper(int mana, int health, int attackDamage, String description, ArrayList<String> colors, String name) {
         super(mana, health, attackDamage, description, colors, name);
         this.setPosition("front");
     }
@@ -85,8 +85,8 @@ class Miraj extends Minion {
     }
 }
 
-class theCursedOne extends Minion {
-    public theCursedOne(int mana, int health, int attackDamage, String description, ArrayList<String> colors, String name) {
+class TheCursedOne extends Minion {
+    public TheCursedOne(int mana, int health, int attackDamage, String description, ArrayList<String> colors, String name) {
         super(mana, health, attackDamage, description, colors, name);
         this.setAttackDamage(0);
     }

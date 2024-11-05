@@ -46,7 +46,7 @@ public class Gameplay {
     public Player setPlayerTwo() {
         CardInput card = this.startGame.getPlayerTwoHero();
         Hero hero = new Hero(card.getMana(), card.getDescription(), card.getColors(), card.getName());
-        Player player = new Player(1, hero);
+        Player player = new Player(0, hero);
         return player;
     }
 

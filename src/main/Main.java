@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import checker.CheckerConstants;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import fileio.*;
 import gametable.Gametable;
 import gameplay.Gameplay;
@@ -77,6 +78,7 @@ public final class Main {
         DecksInput playerTwoDecks = inputData.getPlayerTwoDecks();
         for(GameInput game : games) {
             Gameplay gameplay = new Gameplay(game, playerOneDecks, playerTwoDecks);
+            gameplay.startGame();
         }
 
         /*
@@ -98,18 +100,18 @@ public final class Main {
          *
          */
 
-//        ObjectMapper mapper = new ObjectMapper();
-//
-//        ObjectNode objectNode = mapper.createObjectNode();
-//        objectNode.put(" ", " ");
-//
-//        ArrayNode arrayNode = mapper.createArrayNode();
-//        arrayNode.add(objectNode);
-//
-//        output.add(arrayNode);
-//        output.add(objectNode);
-//
-//        System.out.println(output);
+        ObjectMapper mapper = new ObjectMapper();
+
+        ObjectNode objectNode = mapper.createObjectNode();
+        objectNode.put(" ", " ");
+
+        ArrayNode arrayNode = mapper.createArrayNode();
+        arrayNode.add(objectNode);
+
+        output.add(arrayNode);
+        output.add(objectNode);
+
+        System.out.println(output);
 
         ObjectWriter objectWriter = objectMapper.writerWithDefaultPrettyPrinter();
         objectWriter.writeValue(new File(filePath2), output);

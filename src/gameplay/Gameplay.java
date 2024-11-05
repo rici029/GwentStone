@@ -27,12 +27,14 @@ public class Gameplay {
     private ArrayList<ActionsInput> actions;
     private DecksInput playerOneDecks;
     private DecksInput playerTwoDecks;
+    private int playerTurn;
 
     public Gameplay(final GameInput game,final DecksInput playerOneDecks,final DecksInput playerTwoDecks) {
         this.startGame = game.getStartGame();
         this.actions = game.getActions();
         this.playerOneDecks = playerOneDecks;
         this.playerTwoDecks = playerTwoDecks;
+        this.playerTurn = this.startGame.getStartingPlayer();
     }
 
     public void startGame() {
@@ -43,9 +45,11 @@ public class Gameplay {
                 this.startGame.getPlayerOneDeckIdx(), this.startGame.getShuffleSeed());
         ArrayList<Minion> deckTwo = this.getChosenDeck(playerTwoDecks,
                 this.startGame.getPlayerTwoDeckIdx(), this.startGame.getShuffleSeed());
+        this.putCardsInHand(playerOne, deckOne);
+        this.putCardsInHand(playerTwo, deckTwo);
         for (ActionsInput action : actions) {
             String command = action.getCommand();
-            this.checkCommand(command);
+            this.checkCommand(command, gametable, playerOne, playerTwo, deckOne, deckTwo, action);
         }
     }
 
@@ -93,6 +97,85 @@ public class Gameplay {
             default:
                 return null;
         }
+    }
+
+    public void putCardsInHand(final Player player, final ArrayList<Minion> deck) {
+        player.getHand().add(deck.get(0));
+        deck.remove(0);
+    }
+
+    public void checkCommand(final String command, final Gametable gametable, final Player playerOne,
+                             final Player playerTwo, final ArrayList<Minion> deckOne, final ArrayList<Minion> deckTwo,
+                             final ActionsInput action) {
+        switch (command){
+            case "getPlayerDeck":
+                if(action.getPlayerIdx() == 1) {
+                    this.displayDeck(deckOne);
+                } else {
+                    this.displayDeck(deckTwo);
+                }
+            case "getPlayerHero":
+                if(action.getPlayerIdx() == 1) {
+                    this.displayHero(playerOne);
+                } else {
+                    this.displayHero(playerTwo);
+                }
+            case "getPlayerTurn":
+                if(action.getPlayerIdx() == 1) {
+                    this.displayTurn(this.playerTurn);
+                } else {
+                    this.displayTurn(this.playerTurn);
+                }
+            case "endPlayerTurn":
+                if(this.playerTurn == 1) {
+                    this.playerTurn = 2;
+                    this.putCardsInHand(playerTwo, deckTwo);
+                    this.increaseMana(playerTwo);
+                } else {
+                    this.playerTurn = 1;
+                    this.putCardsInHand(playerOne, deckOne);
+                    this.increaseMana(playerOne);
+                }
+            case "placeCard":
+
+            case "getCardsInHand":
+                if(action.getPlayerIdx() == 1) {
+                    this.displayHand(playerOne.getHand());
+                } else {
+                    this.displayHand(playerTwo.getHand());
+                }
+            case "getCardsOnTable":
+                this.displayTable(gametable);
+
+            default:
+                break;
+        }
+    }
+
+    public void displayDeck(final ArrayList<Minion> deck) {
+        for (Minion minion : deck) {
+//            System.out.println(minion.toString());
+        }
+    }
+
+    public void displayHero(final Player player) {
+//        System.out.println(player.getHero().toString());
+    }
+
+    public void displayTurn(final int player) {
+//        System.out.println(player.getTurn());
+    }
+
+    public void displayHand(final ArrayList<Minion> hand) {
+        //display hand
+    }
+
+    public void displayTable(final Gametable gametable) {
+        //display table
+    }
+    //*************************TO MODIFY********************************
+    public void increaseMana(final Player player) {
+        player.setManaToUse(player.getManaToUse() + 1);
     }
 }
 

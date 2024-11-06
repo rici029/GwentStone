@@ -1,5 +1,8 @@
 package gameplay;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import fileio.*;
 import gametable.Gametable;
 import heroes.Hero;
@@ -37,7 +40,7 @@ public class Gameplay {
         this.playerTurn = this.startGame.getStartingPlayer();
     }
 
-    public void startGame() {
+    public void startGame(ArrayNode output) {
         Gametable gametable = new Gametable();
         Player playerOne = this.setPlayerOne();
         Player playerTwo = this.setPlayerTwo();
@@ -49,16 +52,16 @@ public class Gameplay {
         this.putCardsInHand(playerTwo, deckTwo);
         for (ActionsInput action : actions) {
             String command = action.getCommand();
-            this.checkCommand(command, gametable, playerOne, playerTwo, deckOne, deckTwo, action);
+            this.checkCommand(command, gametable, playerOne, playerTwo, deckOne, deckTwo, action, output);
         }
     }
-
+    //********MODIFY THIS TO CONSTRUCT WITH DIFFERNET TYPES OF HEROES*******
     public Player setPlayerOne() {
         CardInput card = this.startGame.getPlayerOneHero();
         Hero hero = new Hero(card.getMana(), card.getDescription(), card.getColors(), card.getName());
         return new Player(0, hero);
     }
-
+    //********MODIFY THIS TO CONSTRUCT WITH DIFFERNET TYPES OF HEROES**************
     public Player setPlayerTwo() {
         CardInput card = this.startGame.getPlayerTwoHero();
         Hero hero = new Hero(card.getMana(), card.getDescription(), card.getColors(), card.getName());
@@ -106,25 +109,25 @@ public class Gameplay {
 
     public void checkCommand(final String command, final Gametable gametable, final Player playerOne,
                              final Player playerTwo, final ArrayList<Minion> deckOne, final ArrayList<Minion> deckTwo,
-                             final ActionsInput action) {
+                             final ActionsInput action, final ArrayNode output) {
         switch (command){
             case "getPlayerDeck":
                 if(action.getPlayerIdx() == 1) {
-                    this.displayDeck(deckOne);
+                    this.displayDeck(deckOne, output);
                 } else {
-                    this.displayDeck(deckTwo);
+                    this.displayDeck(deckTwo, output);
                 }
             case "getPlayerHero":
                 if(action.getPlayerIdx() == 1) {
-                    this.displayHero(playerOne);
+                    this.displayHero(playerOne, output, action.getPlayerIdx());
                 } else {
-                    this.displayHero(playerTwo);
+                    this.displayHero(playerTwo, output, action.getPlayerIdx());
                 }
             case "getPlayerTurn":
                 if(action.getPlayerIdx() == 1) {
-                    this.displayTurn(this.playerTurn);
+                    this.displayTurn(this.playerTurn, output);
                 } else {
-                    this.displayTurn(this.playerTurn);
+                    this.displayTurn(this.playerTurn, output);
                 }
             case "endPlayerTurn":
                 if(this.playerTurn == 1) {
@@ -140,37 +143,35 @@ public class Gameplay {
 
             case "getCardsInHand":
                 if(action.getPlayerIdx() == 1) {
-                    this.displayHand(playerOne.getHand());
+                    this.displayHand(playerOne.getHand(), output);
                 } else {
-                    this.displayHand(playerTwo.getHand());
+                    this.displayHand(playerTwo.getHand(), output);
                 }
             case "getCardsOnTable":
-                this.displayTable(gametable);
+                this.displayTable(gametable, output);
 
             default:
                 break;
         }
     }
 
-    public void displayDeck(final ArrayList<Minion> deck) {
-        for (Minion minion : deck) {
-//            System.out.println(minion.toString());
-        }
+    public void displayDeck(final ArrayList<Minion> deck, final ArrayNode output) {
+        //display deck
     }
 
-    public void displayHero(final Player player) {
-//        System.out.println(player.getHero().toString());
+    public void displayHero(final Player player, final ArrayNode output, final int playerIdx) {
+        //display hero
     }
 
-    public void displayTurn(final int player) {
+    public void displayTurn(final int player, final ArrayNode output) {
 //        System.out.println(player.getTurn());
     }
 
-    public void displayHand(final ArrayList<Minion> hand) {
+    public void displayHand(final ArrayList<Minion> hand, final ArrayNode output) {
         //display hand
     }
 
-    public void displayTable(final Gametable gametable) {
+    public void displayTable(final Gametable gametable, final ArrayNode output) {
         //display table
     }
     //*************************TO MODIFY********************************

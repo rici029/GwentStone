@@ -78,7 +78,7 @@ public final class Main {
         DecksInput playerTwoDecks = inputData.getPlayerTwoDecks();
         for(GameInput game : games) {
             Gameplay gameplay = new Gameplay(game, playerOneDecks, playerTwoDecks);
-            gameplay.startGame();
+            gameplay.startGame(output);
         }
 
         /*

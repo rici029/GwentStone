@@ -10,7 +10,7 @@ public class Disciple extends Minion {
     }
 
     public void specialAbility(Gametable g, int x) {
-        for(Minion m : g.table[x]) {
+        for(Minion m : g.table.get(x)) {
             m.setHealth(m.getHealth() + 2);
         }
     }

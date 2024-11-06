@@ -80,7 +80,7 @@ public final class Main {
             Gameplay gameplay = new Gameplay(game, playerOneDecks, playerTwoDecks);
             gameplay.startGame(output);
         }
-
+//        System.out.println(output);
         /*
          * TODO Implement your function here
          *
@@ -100,18 +100,18 @@ public final class Main {
          *
          */
 
-        ObjectMapper mapper = new ObjectMapper();
-
-        ObjectNode objectNode = mapper.createObjectNode();
-        objectNode.put(" ", " ");
-
-        ArrayNode arrayNode = mapper.createArrayNode();
-        arrayNode.add(objectNode);
-
-        output.add(arrayNode);
-        output.add(objectNode);
-
-        System.out.println(output);
+//        ObjectMapper mapper = new ObjectMapper();
+//
+//        ObjectNode objectNode = mapper.createObjectNode();
+//        objectNode.put(" ", " ");
+//
+//        ArrayNode arrayNode = mapper.createArrayNode();
+//        arrayNode.add(objectNode);
+//
+//        output.add(arrayNode);
+//        output.add(objectNode);
+//
+//        System.out.println(output);
 
         ObjectWriter objectWriter = objectMapper.writerWithDefaultPrettyPrinter();
         objectWriter.writeValue(new File(filePath2), output);

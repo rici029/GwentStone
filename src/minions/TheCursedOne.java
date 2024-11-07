@@ -10,7 +10,7 @@ public class TheCursedOne extends Minion {
 
     public void specialAbility(Minion m) {
         int temp = m.getHealth();
-        m.setHealth(this.getHealth());
+        m.setHealth(m.getAttackDamage());
         m.setAttackDamage(temp);
     }
 }

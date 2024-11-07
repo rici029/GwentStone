@@ -9,7 +9,7 @@ public class Miraj extends Minion {
     }
 
     public void specialAbility(Minion m) {
-        int temp = m.getHealth();
+        int temp = this.getHealth();
         this.setHealth(m.getHealth());
         m.setHealth(temp);
     }

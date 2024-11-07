@@ -9,10 +9,4 @@ public class Disciple extends Minion {
         super(mana, health, attackDamage, description, colors, name);
         this.setPosition("back");
     }
-
-    public void specialAbility(Gametable g, int x) {
-        for(Minion m : g.table.get(x)) {
-            m.setHealth(m.getHealth() + 2);
-        }
-    }
 }

@@ -30,4 +30,8 @@ public class Minion {
         this.position = "";
         this.hasAttacked = false;
     }
+
+    public void specialAbility(Minion m) {
+        // This method will be overridden by the subclasses
+    }
 }

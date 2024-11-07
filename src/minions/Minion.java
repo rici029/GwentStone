@@ -17,6 +17,7 @@ public class Minion {
     private String name;
     private boolean statusFrozen;
     private String position;
+    private boolean hasAttacked;
 
     public Minion(final int mana, final int health, final int attackDamage, final String description, final ArrayList<String> colors, final String name) {
         this.mana = mana;
@@ -27,5 +28,6 @@ public class Minion {
         this.name = name;
         this.statusFrozen = false;
         this.position = "";
+        this.hasAttacked = false;
     }
 }

@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import checker.CheckerConstants;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import fileio.*;
+import gamestats.Gamestats;
 import gametable.Gametable;
 import gameplay.Gameplay;
 
@@ -76,8 +77,10 @@ public final class Main {
         ArrayList<GameInput> games = inputData.getGames();
         DecksInput playerOneDecks = inputData.getPlayerOneDecks();
         DecksInput playerTwoDecks = inputData.getPlayerTwoDecks();
+        Gamestats gamestats = new Gamestats();
+        int numberOfGames = games.size();
         for(GameInput game : games) {
-            Gameplay gameplay = new Gameplay(game, playerOneDecks, playerTwoDecks);
+            Gameplay gameplay = new Gameplay(game, playerOneDecks, playerTwoDecks, gamestats);
             gameplay.startGame(output);
         }
 //        System.out.println(output);

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import fileio.*;
+import gamestats.Gamestats;
 import gametable.Gametable;
 import heroes.*;
 import lombok.Getter;
@@ -21,6 +22,7 @@ import player.Player;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Objects;
 import java.util.Random;
 
 @Getter
@@ -33,9 +35,10 @@ public class Gameplay {
     private int playerTurn;
     private int round;
     private boolean gameEnded;
+    private Gamestats gamestats;
 
     public Gameplay(final GameInput game, final DecksInput playerOneDecks,
-                    final DecksInput playerTwoDecks) {
+                    final DecksInput playerTwoDecks, final Gamestats gamestats) {
         this.startGame = game.getStartGame();
         this.actions = game.getActions();
         this.playerOneDecks = playerOneDecks;
@@ -43,6 +46,7 @@ public class Gameplay {
         this.playerTurn = this.startGame.getStartingPlayer();
         this.round = 1;
         this.gameEnded = false;
+        this.gamestats = gamestats;
     }
 
     public void startGame(ArrayNode output) {
@@ -55,6 +59,7 @@ public class Gameplay {
                 this.startGame.getPlayerTwoDeckIdx(), this.startGame.getShuffleSeed());
         this.putCardsInHand(playerOne, deckOne);
         this.putCardsInHand(playerTwo, deckTwo);
+        this.gamestats.setNrOfGames(gamestats.getNrOfGames() + 1);
         for (ActionsInput action : actions) {
             String command = action.getCommand();
             this.checkCommand(command, gametable, playerOne, playerTwo,
@@ -163,22 +168,28 @@ public class Gameplay {
                 this.displayTurn(this.playerTurn, output);
                 break;
             case "endPlayerTurn":
+                if(this.gameEnded)
+                    break;
                 if(this.playerTurn == 1) {
+                    this.resetFrozenCards(gametable);
                     this.playerTurn = 2;
                 } else {
+                    this.resetFrozenCards(gametable);
                     this.playerTurn = 1;
                 }
                 if(this.playerTurn == this.startGame.getStartingPlayer()) {
-                    if (this.round <= 10)
+                    if (this.round < 10)
                         this.round++;
                     this.increaseMana(playerOne, this.round);
                     this.increaseMana(playerTwo, this.round);
-                    this.resetHasAttacked(gametable);
+                    this.resetHasAttacked(gametable, playerOne, playerTwo);
                     this.putCardsInHand(playerOne, deckOne);
                     this.putCardsInHand(playerTwo, deckTwo);
                 }
                 break;
             case "placeCard":
+                if(this.gameEnded)
+                    break;
                 if(this.playerTurn == 1) {
                     this.placeCardPlayerOne(gametable, playerOne, action.getHandIdx(), output);
                 }
@@ -204,6 +215,8 @@ public class Gameplay {
                 }
                 break;
             case "cardUsesAttack":
+                if(this.gameEnded)
+                    break;
                 this.attackMinion(gametable, action.getCardAttacker(), action.getCardAttacked(),
                         output, this.playerTurn);
                 break;
@@ -211,26 +224,200 @@ public class Gameplay {
                 this.displayCard(gametable, action.getX(), action.getY(), output);
                 break;
             case "cardUsesAbility":
+                if(this.gameEnded)
+                    break;
                 this.useCardAbility(gametable, action, output, this.playerTurn);
                 break;
             case "useAttackHero":
+                if(this.gameEnded)
+                    break;
                 this.attackHero(gametable, action.getCardAttacker(), output,
                         this.playerTurn, playerOne, playerTwo);
                 break;
             case "useHeroAbility":
-                this.useHeroAbility(action, output, playerOne, playerTwo);
+                if(this.gameEnded)
+                    break;
+                this.useHeroAbility(action, output, playerOne, playerTwo, gametable);
+                break;
+            case "getFrozenCardsOnTable":
+                this.displayFrozenCards(gametable, output);
+                break;
+            case "getPlayerOneWins":
+                this.displayPlayerOneWins(output);
+                break;
+            case "getPlayerTwoWins":
+                this.displayPlayerTwoWins(output);
+                break;
+            case "getTotalGamesPlayed":
+                this.displayTotalGames(output);
                 break;
             default:
                 break;
         }
     }
 
-    public void useHeroAbility(final ActionsInput action, final ArrayNode output,
-                               final Player playerOne, final Player playerTwo) {
-        if(this.playerTurn == 1 ) {
-            if(playerOne.getManaToUse() >= playerOne.getHero().getMana()) {
-                
+    public void displayPlayerOneWins(ArrayNode output) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectNode objectNode = objectMapper.createObjectNode();
+        objectNode.put("command", "getPlayerOneWins");
+        objectNode.put("output", this.gamestats.getNrPlayerOneWins());
+        output.add(objectNode);
+    }
+
+    public void displayPlayerTwoWins(ArrayNode output) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectNode objectNode = objectMapper.createObjectNode();
+        objectNode.put("command", "getPlayerTwoWins");
+        objectNode.put("output", this.gamestats.getNrPlayerTwoWins());
+        output.add(objectNode);
+    }
+
+    public void displayTotalGames(ArrayNode output) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectNode objectNode = objectMapper.createObjectNode();
+        objectNode.put("command", "getTotalGamesPlayed");
+        objectNode.put("output", this.gamestats.getNrOfGames());
+        output.add(objectNode);
+    }
+
+    public void resetFrozenCards(final Gametable gametable) {
+        if(this.playerTurn == 1){
+            for (Minion card : gametable.getTable().get(2)) {
+                card.setStatusFrozen(false);
             }
+            for (Minion card : gametable.getTable().get(3)) {
+                card.setStatusFrozen(false);
+            }
+        }
+        else {
+            for (Minion card : gametable.getTable().get(0)) {
+                card.setStatusFrozen(false);
+            }
+            for (Minion card : gametable.getTable().get(1)) {
+                card.setStatusFrozen(false);
+            }
+        }
+    }
+
+    public void displayFrozenCards(Gametable g, ArrayNode output) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectNode objectNode = objectMapper.createObjectNode();
+        objectNode.put("command", "getFrozenCardsOnTable");
+        ArrayNode arrayNode = objectMapper.createArrayNode();
+        for (ArrayList<Minion> row : g.getTable()) {
+            for (Minion card : row) {
+                if(card.isStatusFrozen()) {
+                    ObjectNode cardNode = objectMapper.createObjectNode();
+                    cardNode.put("mana", card.getMana());
+                    cardNode.put("attackDamage", card.getAttackDamage());
+                    cardNode.put("health", card.getHealth());
+                    cardNode.put("description", card.getDescription());
+                    ArrayNode colors = objectMapper.createArrayNode();
+                    for(String color : card.getColors()) {
+                        colors.add(color);
+                    }
+                    cardNode.put("colors", colors);
+                    cardNode.put("name", card.getName());
+                    arrayNode.add(cardNode);
+                }
+            }
+        }
+        objectNode.put("output", arrayNode);
+        output.add(objectNode);
+    }
+
+    public void useHeroAbility(final ActionsInput action, final ArrayNode output,
+                               final Player playerOne, final Player playerTwo,
+                               final Gametable gametable) {
+        if(this.playerTurn == 1 ) {
+            usePlayerAbility(output, playerOne, gametable, action.getAffectedRow());
+        }
+        else {
+            usePlayerAbility(output, playerTwo, gametable, action.getAffectedRow());
+        }
+    }
+
+    public void usePlayerAbility(ArrayNode output, Player attacker, Gametable gametable,
+                                 int affectedRow) {
+        Hero hero = attacker.getHero();
+        if(attacker.getManaToUse() >= hero.getMana()) {
+            if(!hero.isHasAttacked()){
+                if(Objects.equals(hero.getName(), "Empress Thorina") ||
+                        Objects.equals(hero.getName(), "Lord Royce")) {
+                    this.caseOneHeroAbility(hero, output, gametable, affectedRow, attacker);
+                }
+                else {
+                    this.caseTwoHeroAbility(hero, output, gametable, affectedRow, attacker);
+                }
+            }
+            else {
+                ObjectMapper objectMapper = new ObjectMapper();
+                ObjectNode objectNode = objectMapper.createObjectNode();
+                objectNode.put("command", "useHeroAbility");
+                objectNode.put("affectedRow", affectedRow);
+                objectNode.put("error", "Hero has already attacked this turn.");
+                output.add(objectNode);
+            }
+        }
+        else {
+            ObjectMapper objectMapper = new ObjectMapper();
+            ObjectNode objectNode = objectMapper.createObjectNode();
+            objectNode.put("command", "useHeroAbility");
+            objectNode.put("affectedRow", affectedRow);
+            objectNode.put("error", "Not enough mana to use hero's ability.");
+            output.add(objectNode);
+        }
+    }
+
+    public void caseOneHeroAbility(final Hero hero, final ArrayNode output,
+                                   final Gametable gametable, final int affectedRow, final Player attacker) {
+        if(checkHeroRowCaseOne(affectedRow)) {
+            attacker.setManaToUse(attacker.getManaToUse() - hero.getMana());
+            hero.specialAbility(gametable, affectedRow);
+            hero.setHasAttacked(true);
+        }
+        else {
+            ObjectMapper objectMapper = new ObjectMapper();
+            ObjectNode objectNode = objectMapper.createObjectNode();
+            objectNode.put("command", "useHeroAbility");
+            objectNode.put("affectedRow", affectedRow);
+            objectNode.put("error", "Selected row does not belong to the enemy.");
+            output.add(objectNode);
+        }
+    }
+
+    public boolean checkHeroRowCaseOne(final int affectedRow) {
+        if(this.playerTurn == 1) {
+            return affectedRow == 0 || affectedRow == 1;
+        }
+        else {
+            return affectedRow == 2 || affectedRow == 3;
+        }
+    }
+
+    public void caseTwoHeroAbility(final Hero hero, final ArrayNode output,
+                                   final Gametable gametable, final int affectedRow, final Player attacker) {
+        if(checkHeroRowCaseTwo(affectedRow)) {
+            attacker.setManaToUse(attacker.getManaToUse() - hero.getMana());
+            hero.specialAbility(gametable, affectedRow);
+            hero.setHasAttacked(true);
+        }
+        else {
+            ObjectMapper objectMapper = new ObjectMapper();
+            ObjectNode objectNode = objectMapper.createObjectNode();
+            objectNode.put("command", "useHeroAbility");
+            objectNode.put("affectedRow", affectedRow);
+            objectNode.put("error", "Selected row does not belong to the current player.");
+            output.add(objectNode);
+        }
+    }
+
+    public boolean checkHeroRowCaseTwo(final int affectedRow) {
+        if(this.playerTurn == 1) {
+            return affectedRow == 2 || affectedRow == 3;
+        }
+        else {
+            return affectedRow == 0 || affectedRow == 1;
         }
     }
 
@@ -306,10 +493,12 @@ public class Gameplay {
         ObjectMapper objectMapper = new ObjectMapper();
         ObjectNode objectNode = objectMapper.createObjectNode();
         if(playerIdx == 1) {
-            objectNode.put("gameEnded", "Player onr killed the enemy hero.");
+            objectNode.put("gameEnded", "Player one killed the enemy hero.");
+            this.gamestats.setNrPlayerOneWins(gamestats.getNrPlayerOneWins() + 1);
         }
         else {
             objectNode.put("gameEnded", "Player two killed the enemy hero.");
+            this.gamestats.setNrPlayerTwoWins(gamestats.getNrPlayerTwoWins() + 1);
         }
         output.add(objectNode);
     }
@@ -536,12 +725,15 @@ public class Gameplay {
 
     }
 
-    public void resetHasAttacked(final Gametable gametable) {
+    public void resetHasAttacked(final Gametable gametable, Player playerOne, Player playerTwo) {
         for (ArrayList<Minion> row : gametable.getTable()) {
             for (Minion card : row) {
                 card.setHasAttacked(false);
             }
         }
+
+        playerOne.getHero().setHasAttacked(false);
+        playerTwo.getHero().setHasAttacked(false);
     }
 
     public void attackMinion(final Gametable gametable, final Coordinates attacker,

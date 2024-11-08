@@ -9,8 +9,8 @@ public class GeneralKocioraw extends Hero {
     public GeneralKocioraw(int mana, String description, ArrayList<String> colors, String name) {
         super(mana, description, colors, name);
     }
-    public void specialAbility(Gametable g, int x) {
-        for(Minion m : g.table.get(x)) {
+    public void specialAbility(Gametable g, int row) {
+        for(Minion m : g.table.get(row)) {
             m.setAttackDamage(m.getAttackDamage() + 1);
         }
     }

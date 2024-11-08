@@ -10,17 +10,17 @@ public class EmpressThorina extends Hero {
         super(mana, description, colors, name);
     }
 
-    public void specialAbility(Gametable g, int x) {
-        Minion max = g.table.get(x).get(0);
+    public void specialAbility(Gametable g, int row) {
+        Minion max = g.table.get(row).get(0);
         int maxIndex = 0;
         int i = 0;
-        for(Minion m : g.table.get(x)) {
+        for(Minion m : g.table.get(row)) {
             if(m.getHealth() > max.getHealth()) {
                 max = m;
                 maxIndex = i;
             }
             i++;
         }
-        g.table.get(x).remove(maxIndex);
+        g.table.get(row).remove(maxIndex);
     }
 }

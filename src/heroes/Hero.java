@@ -17,6 +17,7 @@ public class Hero {
     private String description;
     private ArrayList<String> colors;
     private String name;
+    private boolean hasAttacked;
 
     public Hero(int mana, String description, ArrayList<String> colors, String name) {
         this.mana = mana;
@@ -24,9 +25,10 @@ public class Hero {
         this.description = description;
         this.colors = colors;
         this.name = name;
+        this.hasAttacked = false;
     }
 
-    public void specialAbility(Gametable g , Minion m) {
+    public void specialAbility(Gametable g , int row) {
         // This method will be overridden by the subclasses
     }
 }

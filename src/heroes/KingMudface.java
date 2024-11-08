@@ -10,8 +10,8 @@ public class KingMudface extends Hero {
         super(mana, description, colors, name);
     }
 
-    public void specialAbility(Gametable g, int x) {
-        for(Minion m : g.table.get(x)) {
+    public void specialAbility(Gametable g, int row) {
+        for(Minion m : g.table.get(row)) {
             m.setHealth(m.getHealth() + 1);
         }
     }

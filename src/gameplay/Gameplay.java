@@ -217,8 +217,20 @@ public class Gameplay {
                 this.attackHero(gametable, action.getCardAttacker(), output,
                         this.playerTurn, playerOne, playerTwo);
                 break;
+            case "useHeroAbility":
+                this.useHeroAbility(action, output, playerOne, playerTwo);
+                break;
             default:
                 break;
+        }
+    }
+
+    public void useHeroAbility(final ActionsInput action, final ArrayNode output,
+                               final Player playerOne, final Player playerTwo) {
+        if(this.playerTurn == 1 ) {
+            if(playerOne.getManaToUse() >= playerOne.getHero().getMana()) {
+                
+            }
         }
     }
 
@@ -238,7 +250,7 @@ public class Gameplay {
                     cardAttackerNode.put("x", attacker.getX());
                     cardAttackerNode.put("y", attacker.getY());
                     objectNode.put("cardAttacker", cardAttackerNode);
-                    objectNode.put("error", "Attacker card is not of type 'Tank'.");
+                    objectNode.put("error", "Attacked card is not of type 'Tank'.");
                     output.add(objectNode);
                 }
                 else {

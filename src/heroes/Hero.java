@@ -25,4 +25,8 @@ public class Hero {
         this.colors = colors;
         this.name = name;
     }
+
+    public void specialAbility(Gametable g , Minion m) {
+        // This method will be overridden by the subclasses
+    }
 }

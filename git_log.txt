@@ -1,0 +1,107 @@
+commit ee2a66ca831dcddb76edc06799284684e9ce088b
+Author: rici029 <bogdy294@gmail.com>
+Date:   Sat Nov 16 16:13:57 2024 +0200
+
+    ALL DONE MAVEN
+
+commit 552825d79ca676b3805744d0ee193467d28f11e8
+Author: rici029 <bogdy294@gmail.com>
+Date:   Sat Nov 16 15:18:20 2024 +0200
+
+    ALL DONE
+
+commit 23083a5095818b3f369829b205de6bab2d1b3956
+Author: rici029 <bogdy294@gmail.com>
+Date:   Fri Nov 8 16:13:47 2024 +0200
+
+    Done.Coding style incoming
+
+commit 74117e5a4d73eab4a81eba60db43c782d0d0860a
+Author: rici029 <bogdy294@gmail.com>
+Date:   Fri Nov 8 12:20:07 2024 +0200
+
+    use card abilities immplementation ongoing
+
+commit 9c8f577b765a6d181f00e6db689e7019cda5bdae
+Author: rici029 <bogdy294@gmail.com>
+Date:   Thu Nov 7 17:44:57 2024 +0200
+
+    use card abilities immplementation ongoing
+
+commit 6cb6432e7f4b816210d51e17aa98f4af885158cc
+Author: rici029 <bogdy294@gmail.com>
+Date:   Thu Nov 7 02:50:20 2024 +0200
+
+    use card abilities immplementation ongoing
+
+commit 045e095c480524253878f44a7f1d27d90ee7d4ba
+Author: rici029 <bogdy294@gmail.com>
+Date:   Thu Nov 7 02:50:03 2024 +0200
+
+    use card abilities immplementation ongoing
+
+commit 6433c21c4def411ec340cafacb503ef24dd8fd29
+Author: rici029 <bogdy294@gmail.com>
+Date:   Wed Nov 6 20:26:34 2024 +0200
+
+    test 1 done
+
+commit bea756ad2bcf5ff8cd96093c33fe2d9f3843b020
+Author: rici029 <bogdy294@gmail.com>
+Date:   Wed Nov 6 08:49:04 2024 +0200
+
+    changed gametable to an arraylist of arraylists instead of matrix
+
+commit 76af8533a7966b2ef37810b49bc7f9e510fe7d13
+Author: rici029 <bogdy294@gmail.com>
+Date:   Wed Nov 6 01:22:58 2024 +0200
+
+    started implementing actions methods in Gameplay.java
+
+commit a18bd94150646482f23cfd5c12ff40cef2488b6e
+Author: rici029 <bogdy294@gmail.com>
+Date:   Wed Nov 6 00:04:44 2024 +0200
+
+    updated gameplay class and added new classes files in minion package
+
+commit 8fa7b835f18af14047741b91393432fef71fb75d
+Author: rici029 <bogdy294@gmail.com>
+Date:   Tue Nov 5 17:34:28 2024 +0200
+
+    started creating gameplay class
+
+commit 7e493dc3db1e887d2c76a5ddd3437fc1b6361eca
+Author: rici029 <bogdy294@gmail.com>
+Date:   Tue Nov 5 15:03:32 2024 +0200
+
+    started creating gameplay class
+
+commit 6cf8b6423ef4af4319779610d37a071f81fbf4dd
+Author: rici029 <bogdy294@gmail.com>
+Date:   Fri Nov 1 12:33:56 2024 +0200
+
+    added special abilities to cards and heroes
+
+commit f4e9546c34df48e95577c152f0cccf721a8e6a82
+Author: rici029 <bogdy294@gmail.com>
+Date:   Fri Nov 1 00:59:39 2024 +0200
+
+    added special abilities to cards and heroes
+
+commit 9de2c5d51fa107d98cc0b55b76fdf36a055f5eb2
+Author: rici029 <bogdy294@gmail.com>
+Date:   Fri Nov 1 00:05:57 2024 +0200
+
+    added some classes
+
+commit 0ef7ff756235ad8acc3d05e443a3be37a5fc9a61
+Author: rici029 <bogdy294@gmail.com>
+Date:   Thu Oct 31 23:38:18 2024 +0200
+
+    added some classes
+
+commit 78834f4eceab7eb1ab6d8ad8ba47fca2fbef2260
+Author: rici029 <bogdy294@gmail.com>
+Date:   Thu Oct 31 20:43:22 2024 +0200
+
+    init

@@ -2,7 +2,6 @@ package heroes;
 
 import gametable.Gametable;
 
-import minions.Minion;
 
 import java.util.ArrayList;
 
@@ -18,17 +17,24 @@ public class Hero {
     private ArrayList<String> colors;
     private String name;
     private boolean hasAttacked;
+    private static final int MAX_HEALTH = 30;
 
-    public Hero(int mana, String description, ArrayList<String> colors, String name) {
+    public Hero(final int mana, final String description, final ArrayList<String> colors,
+                final String name) {
         this.mana = mana;
-        this.health = 30;
+        this.health = MAX_HEALTH;
         this.description = description;
         this.colors = colors;
         this.name = name;
         this.hasAttacked = false;
     }
 
-    public void specialAbility(Gametable g , int row) {
+    /**
+     *
+     * @param g game table
+     * @param row row on which the special ability is used
+     */
+    public void specialAbility(final Gametable g, final int row) {
         // This method will be overridden by the subclasses
     }
 }

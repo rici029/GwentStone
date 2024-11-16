@@ -6,10 +6,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import checker.CheckerConstants;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import fileio.*;
+import fileio.Input;
+import fileio.GameInput;
+import fileio.DecksInput;
+
 import gamestats.Gamestats;
-import gametable.Gametable;
 import gameplay.Gameplay;
 
 import java.io.File;
@@ -78,43 +79,10 @@ public final class Main {
         DecksInput playerOneDecks = inputData.getPlayerOneDecks();
         DecksInput playerTwoDecks = inputData.getPlayerTwoDecks();
         Gamestats gamestats = new Gamestats();
-        int numberOfGames = games.size();
-        for(GameInput game : games) {
+        for (GameInput game : games) {
             Gameplay gameplay = new Gameplay(game, playerOneDecks, playerTwoDecks, gamestats);
             gameplay.startGame(output);
         }
-//        System.out.println(output);
-        /*
-         * TODO Implement your function here
-         *
-         * How to add output to the output array?
-         * There are multiple ways to do this, here is one example:
-         *
-         * ObjectMapper mapper = new ObjectMapper();
-         *
-         * ObjectNode objectNode = mapper.createObjectNode();
-         * objectNode.put("field_name", "field_value");
-         *
-         * ArrayNode arrayNode = mapper.createArrayNode();
-         * arrayNode.add(objectNode);
-         *
-         * output.add(arrayNode);
-         * output.add(objectNode);
-         *
-         */
-
-//        ObjectMapper mapper = new ObjectMapper();
-//
-//        ObjectNode objectNode = mapper.createObjectNode();
-//        objectNode.put(" ", " ");
-//
-//        ArrayNode arrayNode = mapper.createArrayNode();
-//        arrayNode.add(objectNode);
-//
-//        output.add(arrayNode);
-//        output.add(objectNode);
-//
-//        System.out.println(output);
 
         ObjectWriter objectWriter = objectMapper.writerWithDefaultPrettyPrinter();
         objectWriter.writeValue(new File(filePath2), output);

@@ -1,6 +1,5 @@
 package minions;
 
-import gametable.Gametable;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,7 +18,8 @@ public class Minion {
     private String position;
     private boolean hasAttacked;
 
-    public Minion(final int mana, final int health, final int attackDamage, final String description, final ArrayList<String> colors, final String name) {
+    public Minion(final int mana, final int health, final int attackDamage,
+                  final String description, final ArrayList<String> colors, final String name) {
         this.mana = mana;
         this.health = health;
         this.attackDamage = attackDamage;
@@ -31,7 +31,11 @@ public class Minion {
         this.hasAttacked = false;
     }
 
-    public void specialAbility(Minion m) {
+    /**
+     *
+     * @param m minion on which the special ability is used
+     */
+    public void specialAbility(final Minion m) {
         // This method will be overridden by the subclasses
     }
 }

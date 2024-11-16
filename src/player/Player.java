@@ -10,9 +10,9 @@ import java.util.ArrayList;
 @Getter
 @Setter
 public class Player {
-    int manaToUse;
-    Hero hero;
-    ArrayList<Minion> hand;
+    private int manaToUse;
+    private Hero hero;
+    private ArrayList<Minion> hand;
 
     public Player(final int manaToUse, final Hero hero) {
         this.manaToUse = manaToUse;
